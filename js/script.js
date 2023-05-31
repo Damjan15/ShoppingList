@@ -3,6 +3,8 @@ const itemInput = document.getElementById("item-input");
 const itemList = document.getElementById("item-list");
 const clearBtn = document.getElementById("clear");
 const filterInput = document.getElementById("filter");
+const formBtn = itemForm.querySelector('button');
+let isEditMode = false;
 
 // Functions
 function addItem(e) {
@@ -55,7 +57,7 @@ function onClickItem(e) {
     if (e.target.parentElement.classList.contains("remove-item")) {
         removeItem(e.target.parentElement.parentElement);
     } else {
-        
+        setItemToEdit(e.target);
     }
 }
 
@@ -87,6 +89,18 @@ function clearItems() {
   localStorage.clear();
 
   checkUI();
+}
+
+function setItemToEdit(item) {
+    isEditMode = true;
+
+    itemList.querySelectorAll("li").forEach((i) => i.classList.remove('edit-mode'));  // We do this so the two items are not in edit mode.
+
+    item.classList.add('edit-mode');
+    formBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
+    formBtn.style.backgroundColor = "#228B22";
+    itemInput.value = item.textContent;
+
 }
 
 function filterItems(e) {
