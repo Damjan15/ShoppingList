@@ -46,6 +46,21 @@ function clearItems() {
     checkUI();
 }
 
+function filterItems(e) {
+    const text = e.target.value.toLowerCase();
+    const items = itemList.querySelectorAll("li");
+    
+    items.forEach((item) => {
+        const itemName = item.firstChild.textContent.toLowerCase();
+
+        if (itemName.includes(text)) {
+            item.style.display = "flex";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
 function createButton(classes) {
     const button = document.createElement("button");
     button.className = classes;
@@ -79,5 +94,6 @@ function checkUI() {
 itemForm.addEventListener("submit", addItem);
 itemList.addEventListener("click", removeItem);
 clearBtn.addEventListener("click", clearItems);
+filterInput.addEventListener("input", filterItems);
 
 checkUI();
