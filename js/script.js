@@ -41,6 +41,9 @@ function addItem(e) {
 
     itemInput.value = "";
 
+    // Add Item to Local Storage
+    addItemToStorage(newItem);
+
     checkUI();
 }
 
@@ -94,6 +97,23 @@ function filterItems(e) {
             item.style.display = 'none';
         }
     })
+}
+
+
+function addItemToStorage(item) {
+    let itemsFromStorage;
+
+    if (localStorage.getItem('items') === null) {
+        itemsFromStorage = [];
+    } else {
+        itemsFromStorage = JSON.parse(localStorage.getItem('items'));
+    }
+
+    // Add new item to array
+    itemsFromStorage.push(item);
+
+    // Convert to JSON string and set to local storage
+    localStorage.setItem('items', JSON.stringify(itemsFromStorage));
 }
 
 
